@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elevate — Newsletter Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1B2A4A;
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --offwhite: #F5F2EC;
+    --grey: #8A9BB5;
+    --text: #1B2A4A;
+    --border: #DDD8CE;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Header */
+  .header {
+    background: var(--navy);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .header-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .header-name {
+    font-family: 'Playfair Display SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+  }
+
+  .header-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  /* Gold rule */
+  .gold-rule {
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+  }
+
+  /* Page layout */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  /* Section heading */
+  .section-heading {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-eyebrow {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grey);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Two column layout */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: var(--navy);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .card-header-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  /* Draft display */
+  .draft-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .draft-display::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .draft-display::-webkit-scrollbar-track {
+    background: var(--offwhite);
+  }
+
+  .draft-display::-webkit-scrollbar-thumb {
+    background: var(--gold-light);
+    border-radius: 2px;
+  }
+
+  /* Form elements */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  .field label {
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 7px;
+  }
+
+  .field textarea,
+  .field input[type="text"] {
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--offwhite);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    resize: vertical;
+  }
+
+  .field textarea:focus,
+  .field input[type="text"]:focus {
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  .field textarea.main-edit {
+    min-height: 380px;
+    font-size: 13.5px;
+  }
+
+  .field-hint {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--grey);
+    margin-top: 5px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Submit button */
+  .submit-wrap {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-approve {
+    width: 100%;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .btn-approve::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .btn-approve:hover { background: #243760; }
+  .btn-approve:disabled { background: #8A9BB5; cursor: not-allowed; }
+  .btn-approve:disabled::after { display: none; }
+
+  .status-msg {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--grey);
+    text-align: center;
+    min-height: 18px;
+    letter-spacing: 0.02em;
+  }
+
+  .status-msg.success { color: #3a7d44; }
+  .status-msg.error { color: #b94040; }
+
+  /* Meta bar */
+  .meta-bar {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .meta-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+  }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 40px;
+  }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 22px;
+    color: var(--gold);
+  }
+
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .success-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--grey);
+    line-height: 1.7;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--navy);
+    padding: 16px 48px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 720px) {
+    .columns { grid-template-columns: 1fr; }
+    .page { padding: 32px 20px 60px; }
+    .header { padding: 16px 20px; }
+    .meta-bar { flex-wrap: wrap; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">
+    <span class="header-eyebrow">Elevate Business Community</span>
+    <span class="header-name">Elevate</span>
+  </div>
+  <span class="header-tag">Newsletter Review Portal</span>
+</div>
+<div class="gold-rule"></div>
+
+<div class="page" id="reviewPage">
+
+  <div class="section-heading">
+    <p class="section-eyebrow">Human in the Loop</p>
+    <h1 class="section-title">Review &amp; Approve Newsletter Draft</h1>
+    <p class="section-subtitle">Read the AI-generated draft on the left. Edit the copy on the right, then submit your final version for delivery.</p>
+  </div>
+
+  <div class="meta-bar" id="metaBar">
+    <div class="meta-item">
+      <span class="meta-label">Pillar</span>
+      <span class="meta-value" id="metaPillar">Loading...</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">Phase</span>
+      <span class="meta-value" id="metaPhase">Core</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">Status</span>
+      <span class="meta-value" style="color: var(--gold);">Awaiting Review</span>
+    </div>
+  </div>
+
+  <div class="columns">
+
+    <!-- Left: AI Draft -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <span class="card-header-title">AI Generated Draft</span>
+      </div>
+      <div class="card-body">
+        <div class="draft-display" id="draftDisplay">Loading draft...</div>
+      </div>
+    </div>
+
+    <!-- Right: Edit & Approve -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <span class="card-header-title">Edit &amp; Approve</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label>Final Newsletter Copy</label>
+          <textarea class="main-edit" id="editedCopy" placeholder="The draft will appear here for editing..."></textarea>
+          <p class="field-hint">Edit the copy above as needed. What you submit here will be sent to the audience.</p>
+        </div>
+        <div class="submit-wrap">
+          <button class="btn-approve" id="approveBtn" onclick="submitApproval()">Approve &amp; Send to Pipeline</button>
+          <div class="status-msg" id="statusMsg"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Success screen -->
+<div class="page success-screen" id="successScreen">
+  <div class="success-icon">✓</div>
+  <h2 class="success-title">Newsletter Approved</h2>
+  <p class="success-body">Your edited copy has been submitted.<br>The pipeline will continue and deliver the newsletter to your audience.</p>
+</div>
+
+<div class="footer">
+  <p>Elevate Business Community &nbsp;·&nbsp; Newsletter Workflow &nbsp;·&nbsp; Internal Use Only</p>
+</div>
+
+<script>
+  // Read URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const draft = params.get('draft') || '';
+  const resumeUrl = params.get('resumeUrl') || '';
+  const pillar = params.get('pillar') || 'Not specified';
+  const phase = params.get('phase') || 'Core';
+
+  // Populate the page
+  document.getElementById('draftDisplay').textContent = draft || 'No draft content found. Check the URL parameters.';
+  document.getElementById('editedCopy').value = draft;
+  document.getElementById('metaPillar').textContent = pillar;
+  document.getElementById('metaPhase').textContent = phase;
+
+  async function submitApproval() {
+    const btn = document.getElementById('approveBtn');
+    const status = document.getElementById('statusMsg');
+    const editedCopy = document.getElementById('editedCopy').value.trim();
+    const reviewerName = document.getElementById('reviewerName').value.trim();
+    const reviewNotes = document.getElementById('reviewNotes').value.trim();
+
+    if (!editedCopy) {
+      status.textContent = 'Please add the newsletter copy before approving.';
+      status.className = 'status-msg error';
+      return;
+    }
+
+    if (!resumeUrl) {
+      status.textContent = 'No resume URL found. Check that this link was generated correctly.';
+      status.className = 'status-msg error';
+      return;
+    }
+
+    btn.disabled = true;
+    status.textContent = 'Submitting...';
+    status.className = 'status-msg';
+
+    try {
+      const res = await fetch(resumeUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          edited_copy: editedCopy,
+          approved: true,
+          pillar: pillar,
+          phase: phase
+        })
+      });
+
+      if (res.ok || res.status === 200) {
+        document.getElementById('reviewPage').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+      } else {
+        status.textContent = 'Submission failed. Please try again or contact Sahil.';
+        status.className = 'status-msg error';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      status.textContent = 'Connection error: ' + err.message;
+      status.className = 'status-msg error';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
